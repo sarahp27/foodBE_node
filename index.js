@@ -11,6 +11,8 @@ mongoose.connect(db).then((con) => {
     console.log(`mongodb connected`)
 })
 
+
+
 // Define a sample route
 app.get(`${foodRoute}/list`, (req, res) => {
 //   res.json({ message: 'birynai khaongi!' });
