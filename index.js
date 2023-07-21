@@ -1,28 +1,29 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const foodRoute = '/food';
-const mongoose = require("mongoose")
+
+const cors = require('cors');
+app.use(cors({
+    origin: '*'
+}));
 
 
+const mongoose = require('mongoose');
+const mongoDb = "mongodb+srv://sarah:DFY4QzTmz9guisHy@cluster0.b3bqcrp.mongodb.net/lunchManagmentSystem?retryWrites=true&w=majority";
 
-const db = `mongodb+srv://sarah:DFY4QzTmz9guisHy@cluster0.b3bqcrp.mongodb.net/lunchManagmentSystem?retryWrites=true&w=majority`
 
-mongoose.connect(db).then((con) => {
-    console.log(`mongodb connected`)
+console.log("MongoDb in connected ");
+
+mongoose.connect(mongoDb).then((con) => {
+    console.log('mongodb connected');
 })
 
-// Define a sample route
-app.get(`${foodRoute}/list`, (req, res) => {
-//   res.json({ message: 'birynai khaongi!' });
-res.send('Getting all data!')
-});
+app.use(express.json())
 
-app.post(`${foodRoute}/post`, (req, res) => {
-    res.send('Food added to an api')
-  })
+const foodRouter = require('./routes/food')
+app.use('/food',foodRouter)
 
 
-// Start the server
 app.listen(3001, () => {
-  console.log('Server started on port 3001');
+  console.log("this app is running on port 3001");
 });
+
